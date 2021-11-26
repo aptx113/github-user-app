@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    `kotlin-dsl`
-}
+package com.danteyu.studio.githubusersapp.data.source.api
 
-repositories {
-    google()
-    gradlePluginPortal()
-    mavenCentral()
-}
+import com.danteyu.studio.githubusersapp.model.GitHubUser
+import retrofit2.Response
+import retrofit2.http.GET
 
-dependencies {
-    implementation("com.android.tools.build:gradle:7.0.3")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
-    implementation("com.diffplug.spotless:spotless-plugin-gradle:5.11.0")
+/**
+ * Created by George Yu in Nov. 2021.
+ */
+interface GitHubUsersApiService {
+
+    @GET("users")
+    suspend fun getUsers(): Response<GitHubUser>
 }
