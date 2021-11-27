@@ -13,17 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp.data.source.api
+package com.danteyu.studio.githubusersapp.utils
 
-import com.danteyu.studio.githubusersapp.model.GitHubUser
-import retrofit2.Response
-import retrofit2.http.GET
+import com.danteyu.studio.githubusersapp.model.ErrorResponse
 
 /**
  * Created by George Yu in Nov. 2021.
  */
-interface GitHubUsersApiService {
+sealed class Resource<out T>(
+    val data: T? = null,
+    val message: String? = null
+) {
+    class Success<T>(data: T) : Resource<T>(data)
+    class Error<T>(message: String, data: T? = null) : Resource<T>(data, message)
+    class GenericError(val code: Int? = null, val error: ErrorResponse? = null) :
+        Resource<Nothing>()
 
-    @GET("users")
-    suspend fun getUsers(): Response<List<GitHubUser>>
+    class Loading<T>(data: T? = null) : Resource<T>(data)
 }

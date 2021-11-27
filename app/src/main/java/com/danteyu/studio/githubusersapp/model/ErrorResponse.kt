@@ -13,17 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp.data.source.api
-
-import com.danteyu.studio.githubusersapp.model.GitHubUser
-import retrofit2.Response
-import retrofit2.http.GET
+package com.danteyu.studio.githubusersapp.model
 
 /**
  * Created by George Yu in Nov. 2021.
  */
-interface GitHubUsersApiService {
-
-    @GET("users")
-    suspend fun getUsers(): Response<List<GitHubUser>>
-}
+data class ErrorResponse(
+    val errorDescription: String,
+    val cause: Map<String, String> = emptyMap()
+)

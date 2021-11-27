@@ -13,17 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp.data.source.api
+package com.danteyu.studio.githubusersapp
 
-import com.danteyu.studio.githubusersapp.model.GitHubUser
-import retrofit2.Response
-import retrofit2.http.GET
+import android.app.Application
+import timber.log.Timber
+import kotlin.properties.Delegates
 
 /**
  * Created by George Yu in Nov. 2021.
  */
-interface GitHubUsersApiService {
+class GitHubUserApp : Application() {
 
-    @GET("users")
-    suspend fun getUsers(): Response<List<GitHubUser>>
+    companion object {
+        var instance: GitHubUserApp by Delegates.notNull()
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        instance = this
+
+        if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
+    }
 }
