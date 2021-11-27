@@ -16,12 +16,14 @@
 package com.danteyu.studio.githubusersapp
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import kotlin.properties.Delegates
 
 /**
  * Created by George Yu in Nov. 2021.
  */
+@HiltAndroidApp
 class GitHubUserApp : Application() {
 
     companion object {
