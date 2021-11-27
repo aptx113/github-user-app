@@ -99,11 +99,8 @@ object Moshi {
 }
 
 object Navigation {
-    const val FRAG = "androidx.navigation:navigation-fragment-ktx:${NAV_VERSION}"
-    const val UI = "androidx.navigation:navigation-ui-ktx:${NAV_VERSION}"
     const val SAFE_ARGS_GRADLE =
         "androidx.navigation:navigation-safe-args-gradle-plugin:${NAV_VERSION}"
-    const val NAV_TESTING = "androidx.navigation:navigation-testing:${NAV_VERSION}"
 }
 
 object OkHttp3 {
@@ -118,13 +115,6 @@ object RecyclerView {
 object Retrofit2 {
     const val RETROFIT = "com.squareup.retrofit2:retrofit:${RETROFIT2_VERSION}"
     const val CONVERTER_MOSHI = "com.squareup.retrofit2:converter-moshi:${RETROFIT2_VERSION}"
-}
-
-object Room {
-    const val RUNTIME = "androidx.room:room-runtime:${ROOM_VERSION}"
-    const val COMPILER = "androidx.room:room-compiler:${ROOM_VERSION}"
-    const val KTX = "androidx.room:room-ktx:${ROOM_VERSION}"
-    const val TESTING = "androidx.room:room-testing:${ROOM_VERSION}"
 }
 
 object Test {
@@ -158,20 +148,15 @@ object Libraries {
         add(Material.MATERIAL)
         add(Moshi.CODEGEN)
         add(Moshi.KOTLIN)
-        add(Navigation.FRAG)
-        add(Navigation.UI)
         add(OkHttp3.LOGGING_INTERCEPTOR)
         add(RecyclerView.RECYCLERVIEW)
         add(Retrofit2.CONVERTER_MOSHI)
         add(Retrofit2.RETROFIT)
-        add(Room.KTX)
-        add(Room.RUNTIME)
         add(Test.CORE)
         add(Timber.TIMBER)
     }
 
     val kaptLibraries = arrayListOf<String>().apply {
         add(Hilt.COMPILER)
-        add(Room.COMPILER)
     }
 }
