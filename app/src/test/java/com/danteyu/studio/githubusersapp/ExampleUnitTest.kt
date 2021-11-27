@@ -13,18 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    `kotlin-dsl`
-}
+package com.danteyu.studio.githubusersapp
 
-repositories {
-    google()
-    gradlePluginPortal()
-    mavenCentral()
-}
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
-dependencies {
-    implementation("com.android.tools.build:gradle:7.0.3")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
-    implementation("com.diffplug.spotless:spotless-plugin-gradle:5.11.0")
+/**
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * See [testing documentation](http://d.android.com/tools/testing).
+ */
+class ExampleUnitTest {
+    @Test
+    fun addition_isCorrect() {
+        assertEquals(4, 2 + 2)
+    }
 }
