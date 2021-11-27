@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp.data.source.api
+package com.danteyu.studio.githubusersapp.data.repository
 
 import com.danteyu.studio.githubusersapp.model.GitHubUser
-import retrofit2.http.GET
+import com.danteyu.studio.githubusersapp.utils.Resource
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by George Yu in Nov. 2021.
  */
-interface GitHubUsersApiService {
+interface Repository {
 
-    @GET("users")
-    suspend fun getUsers(): List<GitHubUser>
+    fun getGitHubUsers(): Flow<Resource<List<GitHubUser>>>
 }
