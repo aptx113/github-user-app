@@ -15,13 +15,11 @@ import dependencyVersions.DependencyVersions.MATERIAL_VERSION
 import dependencyVersions.DependencyVersions.MOSHI_VERSION
 import dependencyVersions.DependencyVersions.NAV_VERSION
 import dependencyVersions.DependencyVersions.OKHTTP3_VERSION
-import dependencyVersions.DependencyVersions.PAGING_VERSION
 import dependencyVersions.DependencyVersions.RECYCLERVIEW_VERSION
 import dependencyVersions.DependencyVersions.RETROFIT2_VERSION
-import dependencyVersions.DependencyVersions.ROOM_VERSION
+import dependencyVersions.DependencyVersions.SWIPE_REFRESH_VERSION
 import dependencyVersions.DependencyVersions.TEST_VERSION
 import dependencyVersions.DependencyVersions.TIMBER_VERSION
-import dependencyVersions.DependencyVersions.VIEWPAGER2_VERSION
 
 /**
  * All the Project dependencies are declared here.
@@ -99,20 +97,13 @@ object Moshi {
 }
 
 object Navigation {
-    const val FRAG = "androidx.navigation:navigation-fragment-ktx:${NAV_VERSION}"
-    const val UI = "androidx.navigation:navigation-ui-ktx:${NAV_VERSION}"
     const val SAFE_ARGS_GRADLE =
         "androidx.navigation:navigation-safe-args-gradle-plugin:${NAV_VERSION}"
-    const val NAV_TESTING = "androidx.navigation:navigation-testing:${NAV_VERSION}"
 }
 
 object OkHttp3 {
     const val LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:${OKHTTP3_VERSION}"
     const val MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:${OKHTTP3_VERSION}"
-}
-
-object Paging {
-    const val PAGING3 = "androidx.paging:paging-runtime:${PAGING_VERSION}"
 }
 
 object RecyclerView {
@@ -124,11 +115,9 @@ object Retrofit2 {
     const val CONVERTER_MOSHI = "com.squareup.retrofit2:converter-moshi:${RETROFIT2_VERSION}"
 }
 
-object Room {
-    const val RUNTIME = "androidx.room:room-runtime:${ROOM_VERSION}"
-    const val COMPILER = "androidx.room:room-compiler:${ROOM_VERSION}"
-    const val KTX = "androidx.room:room-ktx:${ROOM_VERSION}"
-    const val TESTING = "androidx.room:room-testing:${ROOM_VERSION}"
+object SwipeRefresh {
+    const val SWIPE_REFRESH =
+        "androidx.swiperefreshlayout:swiperefreshlayout:${SWIPE_REFRESH_VERSION}"
 }
 
 object Test {
@@ -139,9 +128,6 @@ object Timber {
     const val TIMBER = "com.jakewharton.timber:timber:${TIMBER_VERSION}"
 }
 
-object ViewPager2 {
-    const val VIEWPAGER2 = "androidx.viewpager2:viewpager2:${VIEWPAGER2_VERSION}"
-}
 
 object Libraries {
     val libraries = arrayListOf<String>().apply {
@@ -165,22 +151,16 @@ object Libraries {
         add(Material.MATERIAL)
         add(Moshi.CODEGEN)
         add(Moshi.KOTLIN)
-        add(Navigation.FRAG)
-        add(Navigation.UI)
         add(OkHttp3.LOGGING_INTERCEPTOR)
-        add(Paging.PAGING3)
         add(RecyclerView.RECYCLERVIEW)
         add(Retrofit2.CONVERTER_MOSHI)
         add(Retrofit2.RETROFIT)
-        add(Room.KTX)
-        add(Room.RUNTIME)
+        add(SwipeRefresh.SWIPE_REFRESH)
         add(Test.CORE)
         add(Timber.TIMBER)
-        add(ViewPager2.VIEWPAGER2)
     }
 
     val kaptLibraries = arrayListOf<String>().apply {
         add(Hilt.COMPILER)
-        add(Room.COMPILER)
     }
 }

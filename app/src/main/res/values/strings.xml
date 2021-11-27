@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">my-android-template</string>
+    <string name="app_name">GitHub Users App</string>
+    <string name="staff">STAFF</string>
+    <string name="view_profile">View Profile</string>
 </resources>

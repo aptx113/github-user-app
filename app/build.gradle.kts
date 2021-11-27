@@ -28,7 +28,6 @@ plugins {
     kotlin(Plugins.KOTLIN_KAPT)
     id(Plugins.KOTLIN_PARCELIZE)
     id(Plugins.HILT_ANDROID)
-    id(Plugins.NAV_SAFEARGS)
 }
 
 android {

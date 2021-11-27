@@ -31,7 +31,6 @@ object AndroidTestLibraries {
         add(Hilt.TESTING)
         add(Mockk.UNIT_TEST)
         add(Mockk.INSTRUMENTAL_TEST)
-        add(Navigation.NAV_TESTING)
         add(TestEx.JUNIT)
         add(TestEx.TRUTH)
         add(Truth.TRUTH)
