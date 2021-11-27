@@ -15,13 +15,11 @@ import dependencyVersions.DependencyVersions.MATERIAL_VERSION
 import dependencyVersions.DependencyVersions.MOSHI_VERSION
 import dependencyVersions.DependencyVersions.NAV_VERSION
 import dependencyVersions.DependencyVersions.OKHTTP3_VERSION
-import dependencyVersions.DependencyVersions.PAGING_VERSION
 import dependencyVersions.DependencyVersions.RECYCLERVIEW_VERSION
 import dependencyVersions.DependencyVersions.RETROFIT2_VERSION
-import dependencyVersions.DependencyVersions.ROOM_VERSION
+import dependencyVersions.DependencyVersions.SWIPE_REFRESH_VERSION
 import dependencyVersions.DependencyVersions.TEST_VERSION
 import dependencyVersions.DependencyVersions.TIMBER_VERSION
-import dependencyVersions.DependencyVersions.VIEWPAGER2_VERSION
 
 /**
  * All the Project dependencies are declared here.
@@ -117,6 +115,11 @@ object Retrofit2 {
     const val CONVERTER_MOSHI = "com.squareup.retrofit2:converter-moshi:${RETROFIT2_VERSION}"
 }
 
+object SwipeRefresh {
+    const val SWIPE_REFRESH =
+        "androidx.swiperefreshlayout:swiperefreshlayout:${SWIPE_REFRESH_VERSION}"
+}
+
 object Test {
     const val CORE = "androidx.test:core:${TEST_VERSION}"
 }
@@ -152,6 +155,7 @@ object Libraries {
         add(RecyclerView.RECYCLERVIEW)
         add(Retrofit2.CONVERTER_MOSHI)
         add(Retrofit2.RETROFIT)
+        add(SwipeRefresh.SWIPE_REFRESH)
         add(Test.CORE)
         add(Timber.TIMBER)
     }
