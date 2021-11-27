@@ -111,10 +111,6 @@ object OkHttp3 {
     const val MOCKWEBSERVER = "com.squareup.okhttp3:mockwebserver:${OKHTTP3_VERSION}"
 }
 
-object Paging {
-    const val PAGING3 = "androidx.paging:paging-runtime:${PAGING_VERSION}"
-}
-
 object RecyclerView {
     const val RECYCLERVIEW = "androidx.recyclerview:recyclerview:${RECYCLERVIEW_VERSION}"
 }
@@ -139,9 +135,6 @@ object Timber {
     const val TIMBER = "com.jakewharton.timber:timber:${TIMBER_VERSION}"
 }
 
-object ViewPager2 {
-    const val VIEWPAGER2 = "androidx.viewpager2:viewpager2:${VIEWPAGER2_VERSION}"
-}
 
 object Libraries {
     val libraries = arrayListOf<String>().apply {
@@ -168,7 +161,6 @@ object Libraries {
         add(Navigation.FRAG)
         add(Navigation.UI)
         add(OkHttp3.LOGGING_INTERCEPTOR)
-        add(Paging.PAGING3)
         add(RecyclerView.RECYCLERVIEW)
         add(Retrofit2.CONVERTER_MOSHI)
         add(Retrofit2.RETROFIT)
@@ -176,7 +168,6 @@ object Libraries {
         add(Room.RUNTIME)
         add(Test.CORE)
         add(Timber.TIMBER)
-        add(ViewPager2.VIEWPAGER2)
     }
 
     val kaptLibraries = arrayListOf<String>().apply {
