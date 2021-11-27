@@ -27,7 +27,7 @@
                 android:background="@color/white">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/item_main_one_avatar"
+                    android:id="@+id/item_main_two_avatar"
                     style="@style/circleImageView"
                     android:layout_width="60dp"
                     android:layout_height="0dp"
@@ -38,29 +38,36 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/item_main_one_login_txt"
+                    android:id="@+id/item_main_two_login_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_12"
                     android:textAppearance="@style/CustomTextAppearanceBody2"
-                    app:layout_constraintBottom_toTopOf="@id/item_main_one_site_admin_badge"
-                    app:layout_constraintStart_toEndOf="@id/item_main_one_avatar"
+                    app:layout_constraintStart_toEndOf="@id/item_main_two_avatar"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/item_main_one_site_admin_badge"
-                    style="@style/CustomTextBadgeAppearance"
+                    android:id="@+id/item_main_two_blog_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_12"
                     android:layout_marginTop="@dimen/space_8"
-                    android:background="@drawable/bg_item_main_badge"
-                    android:paddingHorizontal="@dimen/space_12"
-                    android:paddingVertical="@dimen/space_4"
-                    android:text="@string/staff"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/item_main_one_avatar"
-                    app:layout_constraintTop_toBottomOf="@id/item_main_one_login_txt" />
+                    android:textColor="@color/gray_999999"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/item_main_two_login_txt"
+                    app:layout_constraintTop_toBottomOf="@id/item_main_two_login_txt" />
+
+                <Button
+                    android:id="@+id/item_main_two_btn"
+                    style="@style/CustomButtonAppearance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginEnd="@dimen/space_24"
+                    android:layout_marginBottom="@dimen/space_12"
+                    android:text="@string/view_profile"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/item_main_two_login_txt"
+                    app:layout_constraintTop_toBottomOf="@id/item_main_two_blog_txt" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
