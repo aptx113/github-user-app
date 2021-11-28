@@ -28,6 +28,5 @@ sealed class Resource<out T>(
     class Error<T>(message: String, data: T? = null) : Resource<T>(data, message)
     class GenericError(val code: Int? = null, val error: ErrorResponse? = null) :
         Resource<Nothing>()
-
-    class Loading<T>(data: T? = null) : Resource<T>(data)
+    object Loading : Resource<Nothing>()
 }

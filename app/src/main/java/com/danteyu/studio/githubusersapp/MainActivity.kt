@@ -27,6 +27,8 @@ import com.danteyu.studio.githubusersapp.ext.showToast
 import com.danteyu.studio.githubusersapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -44,6 +46,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+        binding.mainSwipeRefresh.setOnRefreshListener {
+            viewModel.refresh()
+        }
+
+        viewModel.refreshStatusFlow.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .onEach { binding.mainSwipeRefresh.isRefreshing = it }
+            .launchIn(lifecycleScope)
 
         setupRecyclerView()
         requestApiData()
