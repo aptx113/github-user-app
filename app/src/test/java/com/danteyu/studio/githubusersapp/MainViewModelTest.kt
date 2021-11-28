@@ -22,6 +22,7 @@ import com.google.common.truth.Truth
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
+import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
@@ -60,7 +61,7 @@ class MainViewModelTest {
             viewModel.getGitHubUsers()
             val value = viewModel.gitHubUsersFlow.first()
             Truth.assertThat(value.data).isEqualTo(mockGitHubUsers)
-//            verify { repository.getGitHubUsersFlow() }
+            verify { repository.getGitHubUsersFlow() }
         }
     }
 }
