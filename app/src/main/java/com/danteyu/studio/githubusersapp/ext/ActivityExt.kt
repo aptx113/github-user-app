@@ -13,11 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp
+package com.danteyu.studio.githubusersapp.ext
+
+import android.app.Activity
+import android.widget.Toast
 
 /**
  * Created by George Yu in Nov. 2021.
  */
-const val BASE_URL = "https://api.github.com/"
-
-const val CROSS_FADE_IN_MILLIS = 600
+fun Activity.showToast(message: String) =
+    Toast.makeText(this, message, android.widget.Toast.LENGTH_SHORT)
+        .show()

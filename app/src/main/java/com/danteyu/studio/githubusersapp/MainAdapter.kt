@@ -29,7 +29,7 @@ import com.danteyu.studio.githubusersapp.model.GitHubUser
 /**
  * Created by George Yu in Nov. 2021.
  */
-class MainAdapter : ListAdapter<GitHubUser, MainViewHolder<*>>(SingleFieldDiffUtils { it }) {
+class MainAdapter : ListAdapter<GitHubUser, MainViewHolder<*>>(SingleFieldDiffUtils { it.id }) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         @LayoutRes viewType: Int

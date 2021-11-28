@@ -13,11 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp
+package com.danteyu.studio.githubusersapp.ext
+
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody
 
 /**
  * Created by George Yu in Nov. 2021.
  */
-const val BASE_URL = "https://api.github.com/"
-
-const val CROSS_FADE_IN_MILLIS = 600
+@Suppress("BlockingMethodInNonBlockingContext")
+suspend fun ResponseBody.stringSuspending() = withContext(Dispatchers.IO) { string() }

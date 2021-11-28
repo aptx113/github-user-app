@@ -16,13 +16,58 @@
 package com.danteyu.studio.githubusersapp
 
 import android.os.Bundle
+import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import com.danteyu.studio.githubusersapp.databinding.ActivityMainBinding
+import com.danteyu.studio.githubusersapp.ext.showToast
+import com.danteyu.studio.githubusersapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+    private val viewModel by viewModels<MainViewModel>()
+    private val adapter by lazy { MainAdapter() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+
+        setupRecyclerView()
+        requestApiData()
+    }
+
+    private fun setupRecyclerView() {
+        binding.mainRecycler.adapter = adapter
+    }
+
+    private fun requestApiData() {
+        viewModel.getGitHubUsers()
+        lifecycleScope.launch {
+
+            viewModel.gitHubUsersFlow.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { response ->
+                    when (response) {
+                        is Resource.Success -> response.data?.let { adapter.submitList(it) }
+                        is Resource.Error -> showToast(response.message.toString())
+                        is Resource.GenericError -> Timber.e("code = ${response.code}, error = ${response.error}")
+                        is Resource.Loading -> {
+                            binding.mainProgress.visibility = View.VISIBLE
+                        }
+                    }
+                }
+        }
     }
 }

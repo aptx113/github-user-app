@@ -84,7 +84,7 @@ object Lifecycle {
     const val LIVEDATE = "androidx.lifecycle:lifecycle-livedata-ktx:${LIFECYCLE_VERSION}"
     const val VIEWMODEL_SAVEDSTATE =
         "androidx.lifecycle:lifecycle-viewmodel-savedstate:${LIFECYCLE_VERSION}"
-    const val RUNTIME = "androidx.lifecycle:lifecycle-runtime:${LIFECYCLE_VERSION}"
+    const val RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:${LIFECYCLE_VERSION}"
 }
 
 object Material {

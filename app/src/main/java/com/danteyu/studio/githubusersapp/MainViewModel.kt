@@ -35,7 +35,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     private val _gitHubUsersFlow = MutableStateFlow<Resource<List<GitHubUser>>>(Resource.Loading())
-    val gitHHubUsersFlow: StateFlow<Resource<List<GitHubUser>>> = _gitHubUsersFlow
+    val gitHubUsersFlow: StateFlow<Resource<List<GitHubUser>>> = _gitHubUsersFlow
 
     private val _refreshStatusFlow = MutableStateFlow<Boolean>(false)
     val refreshStatusFlow: StateFlow<Boolean> = _refreshStatusFlow

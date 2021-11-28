@@ -6,18 +6,26 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="com.danteyu.studio.githubusersapp.utils.Resource.Loading" />
+
+        <variable
+            name="viewModel"
+            type="com.danteyu.studio.githubusersapp.MainViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/gray_400"
         tools:context=".MainActivity">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:paddingVertical="@dimen/space_4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +35,8 @@
                 android:id="@+id/main_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/space_8"
+                android:paddingHorizontal="@dimen/space_8"
+                android:paddingTop="@dimen/space_8"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -38,7 +47,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            bind:apiResponse="@{viewModel.gitHubUsersFlow}" />
 
         <TextView
             android:id="@+id/main_txt"
