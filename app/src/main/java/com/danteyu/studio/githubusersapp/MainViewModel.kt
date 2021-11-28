@@ -33,7 +33,9 @@ import javax.inject.Inject
  * Created by George Yu in Nov. 2021.
  */
 @HiltViewModel
-class MainViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val repository: Repository
+) : ViewModel() {
 
     private val _gitHubUsersFlow = MutableStateFlow<Resource<List<GitHubUser>>>(Resource.Loading)
     val gitHubUsersFlow: StateFlow<Resource<List<GitHubUser>>> = _gitHubUsersFlow
@@ -42,6 +44,7 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
     val refreshStatusFlow = refreshStatusChannel.receiveAsFlow()
 
     fun getGitHubUsers() = viewModelScope.launch {
+        _gitHubUsersFlow.value = Resource.Loading
         repository.getGitHubUsersFlow()
             .collect {
                 _gitHubUsersFlow.value = it

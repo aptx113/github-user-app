@@ -24,6 +24,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.danteyu.studio.githubusersapp.databinding.ActivityMainBinding
 import com.danteyu.studio.githubusersapp.ext.showToast
+import com.danteyu.studio.githubusersapp.utils.NetworkListener
 import com.danteyu.studio.githubusersapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -36,12 +37,14 @@ import timber.log.Timber
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var networkListener: NetworkListener
     private val viewModel by viewModels<MainViewModel>()
     private val adapter by lazy { MainAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        networkListener = NetworkListener()
         setContentView(binding.root)
 
         binding.lifecycleOwner = this
@@ -56,10 +59,20 @@ class MainActivity : AppCompatActivity() {
 
         setupRecyclerView()
         requestApiData()
+        listenNetworkAvailability()
     }
 
     private fun setupRecyclerView() {
         binding.mainRecycler.adapter = adapter
+    }
+
+    private fun listenNetworkAvailability() {
+        networkListener.checkNetworkAvailability(this)
+            .onEach { hasNetwork ->
+                Timber.d(hasNetwork.toString())
+                showNetworkStatus(hasNetwork)
+            }.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .launchIn(lifecycleScope)
     }
 
     private fun requestApiData() {
@@ -77,6 +90,14 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
+        }
+    }
+
+    private fun showNetworkStatus(hasNetwork: Boolean) {
+        if (!hasNetwork) {
+            showToast(getString(R.string.no_internet_connection))
+        } else {
+            showToast(getString(R.string.back_online))
         }
     }
 }

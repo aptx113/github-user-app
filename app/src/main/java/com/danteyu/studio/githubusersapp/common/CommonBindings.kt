@@ -18,6 +18,7 @@ package com.danteyu.studio.githubusersapp.common
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import coil.load
@@ -44,6 +45,7 @@ object CommonBindings {
     fun bindErrorVisibility(view: View, apiResponse: Resource<List<GitHubUser>>) {
         when (view) {
             is ProgressBar -> view.isVisible = apiResponse is Resource.Loading
+            is TextView -> view.isVisible = apiResponse is Resource.Error
         }
     }
 }
