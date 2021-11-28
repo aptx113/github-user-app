@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="user"
+            type="com.danteyu.studio.githubusersapp.model.GitHubUser" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
