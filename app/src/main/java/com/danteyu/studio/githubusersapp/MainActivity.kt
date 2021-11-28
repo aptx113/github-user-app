@@ -29,6 +29,7 @@ import com.danteyu.studio.githubusersapp.utils.NetworkListener
 import com.danteyu.studio.githubusersapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -69,6 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun listenNetworkAvailability() {
         networkListener.checkNetworkAvailability(this)
+            .drop(1)
             .onEach { hasNetwork ->
                 Timber.d(hasNetwork.toString())
                 showNetworkStatus(hasNetwork)
