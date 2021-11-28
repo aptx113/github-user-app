@@ -35,7 +35,9 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext context: Context) = Room.databaseBuilder(
+    fun provideDatabase(
+        @ApplicationContext context: Context
+    ) = Room.databaseBuilder(
         context, GitHubUsersDatabase::class.java,
         GITHUB_USERS_DATABASE
     ).build()

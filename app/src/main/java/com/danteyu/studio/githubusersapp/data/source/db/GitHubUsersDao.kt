@@ -29,7 +29,7 @@ import kotlinx.coroutines.flow.Flow
 interface GitHubUsersDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertGitHubUsers(gitHubUser: GitHubUser)
+    suspend fun insertGitHubUsers(gitHubUsers: List<GitHubUser>)
 
     @Query("SELECT * FROM gitHubUsers_table")
     fun loadGitHubUsersFlow(): Flow<List<GitHubUser>>

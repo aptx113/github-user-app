@@ -15,8 +15,11 @@
  */
 package com.danteyu.studio.githubusersapp.utils
 
+import com.danteyu.studio.githubusersapp.R
 import com.danteyu.studio.githubusersapp.ext.stringSuspending
 import com.danteyu.studio.githubusersapp.model.ErrorResponse
+import com.danteyu.studio.githubusersapp.utils.NetworkUtil.hasInternetConnection
+import com.danteyu.studio.githubusersapp.utils.Utils.getString
 import com.squareup.moshi.Moshi
 import retrofit2.HttpException
 
@@ -24,8 +27,12 @@ import retrofit2.HttpException
  * Created by George Yu in Nov. 2021.
  */
 @SuppressWarnings("TooGenericExceptionCaught")
-suspend fun <T> safeApiCall(apiCall: suspend () -> T): Resource<T> =
+suspend inline fun <T> networkBoundResource(
+    crossinline apiCall: suspend () -> T,
+    crossinline saveApiCall: suspend (T) -> Unit
+): Resource<T> = if (hasInternetConnection()) {
     try {
+        saveApiCall(apiCall.invoke())
         Resource.Success(apiCall.invoke())
     } catch (throwable: Throwable) {
         if (throwable is HttpException) {
@@ -36,9 +43,12 @@ suspend fun <T> safeApiCall(apiCall: suspend () -> T): Resource<T> =
             Resource.Error("Error with $throwable")
         }
     }
+} else {
+    Resource.Error(getString(R.string.no_internet_connection))
+}
 
 @Suppress("BlockingMethodInNonBlockingContext")
-private suspend fun convertErrorBody(throwable: HttpException): ErrorResponse? =
+suspend fun convertErrorBody(throwable: HttpException): ErrorResponse? =
     throwable.response()?.errorBody()?.let {
         val moshiAdapter = Moshi.Builder().build().adapter(ErrorResponse::class.java)
         moshiAdapter.fromJson(it.stringSuspending())

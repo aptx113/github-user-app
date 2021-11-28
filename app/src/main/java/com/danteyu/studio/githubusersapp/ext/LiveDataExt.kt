@@ -13,18 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp.data.source.db
+package com.danteyu.studio.githubusersapp.ext
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.danteyu.studio.githubusersapp.model.GitHubUser
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 
 /**
  * Created by George Yu in Nov. 2021.
  */
-@Database(entities = [GitHubUser::class], version = 1, exportSchema = false)
-@TypeConverters(value = [GitHubUsersConverter::class])
-abstract class GitHubUsersDatabase : RoomDatabase() {
-    abstract fun gitHubUsersDao(): GitHubUsersDao
+fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
+    observe(
+        lifecycleOwner,
+        object : Observer<T> {
+            override fun onChanged(t: T) {
+                removeObserver(this)
+                observer.onChanged(t)
+            }
+        }
+    )
 }
