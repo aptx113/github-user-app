@@ -15,14 +15,25 @@
  */
 package com.danteyu.studio.githubusersapp
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import dagger.hilt.android.AndroidEntryPoint
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
+import kotlin.properties.Delegates
 
-@AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+/**
+ * Created by George Yu in Nov. 2021.
+ */
+@HiltAndroidApp
+class GitHubUsersApp : Application() {
+
+    companion object {
+        var instance: GitHubUsersApp by Delegates.notNull()
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        instance = this
+
+        if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
     }
 }

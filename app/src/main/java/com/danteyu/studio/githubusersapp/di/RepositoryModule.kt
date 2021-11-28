@@ -13,16 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp.data.source.api
+package com.danteyu.studio.githubusersapp.di
 
-import com.danteyu.studio.githubusersapp.model.GitHubUser
-import retrofit2.http.GET
+import com.danteyu.studio.githubusersapp.data.repository.GitHubUsersRepository
+import com.danteyu.studio.githubusersapp.data.repository.Repository
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 /**
  * Created by George Yu in Nov. 2021.
  */
-interface GitHubUsersApiService {
+@Module
+@InstallIn(ViewModelComponent::class)
+abstract class RepositoryModule {
 
-    @GET("users")
-    suspend fun getUsers(): List<GitHubUser>
+    @ViewModelScoped
+    @Binds
+    abstract fun bindGitHubUsersRepository(gitHubUsersRepository: GitHubUsersRepository): Repository
 }

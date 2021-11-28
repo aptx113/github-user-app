@@ -13,16 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp
+package com.danteyu.studio.githubusersapp.utils
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import dagger.hilt.android.AndroidEntryPoint
+import com.danteyu.studio.githubusersapp.model.ErrorResponse
 
-@AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
+/**
+ * Created by George Yu in Nov. 2021.
+ */
+sealed class Resource<out T>(
+    val data: T? = null,
+    val message: String? = null
+) {
+    class Success<T>(data: T) : Resource<T>(data)
+    class Error<T>(message: String, data: T? = null) : Resource<T>(data, message)
+    class GenericError(val code: Int? = null, val error: ErrorResponse? = null) :
+        Resource<Nothing>()
+
+    class Loading<T>(data: T? = null) : Resource<T>(data)
 }

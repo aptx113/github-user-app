@@ -13,16 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp.data.source.api
+package com.danteyu.studio.githubusersapp.data.repository
 
+import com.danteyu.studio.githubusersapp.data.source.api.GitHubUsersApiService
 import com.danteyu.studio.githubusersapp.model.GitHubUser
-import retrofit2.http.GET
+import com.danteyu.studio.githubusersapp.utils.Resource
+import com.danteyu.studio.githubusersapp.utils.safeApiCall
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
 /**
  * Created by George Yu in Nov. 2021.
  */
-interface GitHubUsersApiService {
-
-    @GET("users")
-    suspend fun getUsers(): List<GitHubUser>
+class GitHubUsersRepository @Inject constructor(private val apiService: GitHubUsersApiService) :
+    Repository {
+    override fun getGitHubUsersFlow(): Flow<Resource<List<GitHubUser>>> = flow {
+        emit(safeApiCall { apiService.getUsers() })
+    }
 }
