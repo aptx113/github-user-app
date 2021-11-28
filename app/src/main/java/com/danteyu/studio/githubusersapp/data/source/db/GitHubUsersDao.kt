@@ -13,14 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp
+package com.danteyu.studio.githubusersapp.data.source.db
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.danteyu.studio.githubusersapp.model.GitHubUser
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by George Yu in Nov. 2021.
  */
-const val BASE_URL = "https://api.github.com/"
+@Dao
+interface GitHubUsersDao {
 
-const val CROSS_FADE_IN_MILLIS = 600
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertGitHubUsers(gitHubUser: GitHubUser)
 
-const val GITHUB_USERS_TABLE = "gitHubUsers_table"
-const val GITHUB_USERS_DATABASE = "gitHubUsers_database"
+    @Query("SELECT * FROM gitHubUsers_table")
+    fun loadGitHubUsersFlow(): Flow<List<GitHubUser>>
+}

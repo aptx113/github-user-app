@@ -40,6 +40,7 @@ object TestLibraries {
         add(Mockk.UNIT_TEST)
         add(OkHttp3.MOCKWEBSERVER)
         add(Robolectric.ROBO)
+        add(Room.TESTING)
         add(Truth.TRUTH)
     }
 }

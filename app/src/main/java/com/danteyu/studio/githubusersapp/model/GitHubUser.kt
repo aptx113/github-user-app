@@ -16,14 +16,19 @@
 package com.danteyu.studio.githubusersapp.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.danteyu.studio.githubusersapp.GITHUB_USERS_TABLE
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Entity(tableName = GITHUB_USERS_TABLE)
 @JsonClass(generateAdapter = true)
 data class GitHubUser(
     val login: String,
+    @PrimaryKey(autoGenerate = false)
     val id: Long,
     @Json(name = "node_id")
     val nodeId: String,

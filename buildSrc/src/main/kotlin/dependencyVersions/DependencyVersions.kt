@@ -19,6 +19,7 @@ object DependencyVersions {
     const val OKHTTP3_VERSION = "4.9.3"
     const val RECYCLERVIEW_VERSION = "1.2.1"
     const val RETROFIT2_VERSION = "2.9.0"
+    const val ROOM_VERSION = "2.3.0"
     const val SWIPE_REFRESH_VERSION = "1.1.0"
     const val TEST_VERSION = "1.4.0"
     const val TIMBER_VERSION = "5.0.1"

@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp
+package com.danteyu.studio.githubusersapp.data.source.db
+
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.danteyu.studio.githubusersapp.model.GitHubUser
 
 /**
  * Created by George Yu in Nov. 2021.
  */
-const val BASE_URL = "https://api.github.com/"
-
-const val CROSS_FADE_IN_MILLIS = 600
-
-const val GITHUB_USERS_TABLE = "gitHubUsers_table"
-const val GITHUB_USERS_DATABASE = "gitHubUsers_database"
+@Database(entities = [GitHubUser::class], version = 1, exportSchema = false)
+abstract class GitHubUsersDatabase : RoomDatabase() {
+    abstract fun gitHubUsersDao(): GitHubUsersDao
+}
