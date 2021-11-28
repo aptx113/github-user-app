@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp.utils
+package com.danteyu.studio.githubusersapp.common
 
-import com.danteyu.studio.githubusersapp.model.ErrorResponse
+import android.annotation.SuppressLint
+import androidx.recyclerview.widget.DiffUtil
 
 /**
  * Created by George Yu in Nov. 2021.
  */
-sealed class Resource<out T>(
-    val data: T? = null,
-    val message: String? = null
-) {
-    class Success<T>(data: T) : Resource<T>(data)
-    class Error<T>(message: String, data: T? = null) : Resource<T>(data, message)
-    class GenericError(val code: Int? = null, val error: ErrorResponse? = null) :
-        Resource<Nothing>()
-    object Loading : Resource<Nothing>()
+class SingleFieldDiffUtils<T>(val fieldExtractor: (T) -> Any?) : DiffUtil.ItemCallback<T>() {
+
+    override fun areItemsTheSame(oldItem: T, newItem: T): Boolean =
+        fieldExtractor(oldItem) == fieldExtractor(newItem)
+
+    @SuppressLint("DiffUtilEquals")
+    override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
+        oldItem == newItem
 }

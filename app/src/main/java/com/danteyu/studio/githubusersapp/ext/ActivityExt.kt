@@ -13,20 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp.utils
+package com.danteyu.studio.githubusersapp.ext
 
-import com.danteyu.studio.githubusersapp.model.ErrorResponse
+import android.app.Activity
+import android.widget.Toast
 
 /**
  * Created by George Yu in Nov. 2021.
  */
-sealed class Resource<out T>(
-    val data: T? = null,
-    val message: String? = null
-) {
-    class Success<T>(data: T) : Resource<T>(data)
-    class Error<T>(message: String, data: T? = null) : Resource<T>(data, message)
-    class GenericError(val code: Int? = null, val error: ErrorResponse? = null) :
-        Resource<Nothing>()
-    object Loading : Resource<Nothing>()
-}
+fun Activity.showToast(message: String) =
+    Toast.makeText(this, message, android.widget.Toast.LENGTH_SHORT)
+        .show()

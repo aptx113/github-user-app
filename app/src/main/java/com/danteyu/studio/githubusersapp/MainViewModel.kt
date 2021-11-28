@@ -21,10 +21,11 @@ import com.danteyu.studio.githubusersapp.data.repository.Repository
 import com.danteyu.studio.githubusersapp.model.GitHubUser
 import com.danteyu.studio.githubusersapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,22 +33,27 @@ import javax.inject.Inject
  * Created by George Yu in Nov. 2021.
  */
 @HiltViewModel
-class MainViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val repository: Repository
+) : ViewModel() {
 
-    private val _gitHubUsersFlow = MutableStateFlow<Resource<List<GitHubUser>>>(Resource.Loading())
-    val gitHHubUsersFlow: StateFlow<Resource<List<GitHubUser>>> = _gitHubUsersFlow
+    private val _gitHubUsersFlow = MutableStateFlow<Resource<List<GitHubUser>>>(Resource.Loading)
+    val gitHubUsersFlow: StateFlow<Resource<List<GitHubUser>>> = _gitHubUsersFlow
 
-    private val _refreshStatusFlow = MutableStateFlow<Boolean>(false)
-    val refreshStatusFlow: StateFlow<Boolean> = _refreshStatusFlow
+    private val refreshStatusChannel = Channel<Boolean>(Channel.CONFLATED)
+    val refreshStatusFlow = refreshStatusChannel.receiveAsFlow()
 
     fun getGitHubUsers() = viewModelScope.launch {
+        _gitHubUsersFlow.value = Resource.Loading
         repository.getGitHubUsersFlow()
-            .onCompletion { _refreshStatusFlow.value = false }
-            .collect { _gitHubUsersFlow.value = it }
+            .collect {
+                _gitHubUsersFlow.value = it
+                refreshStatusChannel.send(false)
+            }
     }
 
     fun refresh() {
-        if (_gitHubUsersFlow.value !is Resource.Loading) {
+        if (_gitHubUsersFlow.value != Resource.Loading) {
             getGitHubUsers()
         }
     }

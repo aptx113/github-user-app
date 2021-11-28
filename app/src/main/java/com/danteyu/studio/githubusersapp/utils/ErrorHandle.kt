@@ -15,6 +15,7 @@
  */
 package com.danteyu.studio.githubusersapp.utils
 
+import com.danteyu.studio.githubusersapp.ext.stringSuspending
 import com.danteyu.studio.githubusersapp.model.ErrorResponse
 import com.squareup.moshi.Moshi
 import retrofit2.HttpException
@@ -36,8 +37,9 @@ suspend fun <T> safeApiCall(apiCall: suspend () -> T): Resource<T> =
         }
     }
 
-private fun convertErrorBody(throwable: HttpException): ErrorResponse? =
-    throwable.response()?.errorBody()?.source()?.let {
+@Suppress("BlockingMethodInNonBlockingContext")
+private suspend fun convertErrorBody(throwable: HttpException): ErrorResponse? =
+    throwable.response()?.errorBody()?.let {
         val moshiAdapter = Moshi.Builder().build().adapter(ErrorResponse::class.java)
-        moshiAdapter.fromJson(it)
+        moshiAdapter.fromJson(it.stringSuspending())
     }

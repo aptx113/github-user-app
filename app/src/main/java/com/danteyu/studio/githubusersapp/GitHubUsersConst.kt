@@ -19,3 +19,5 @@ package com.danteyu.studio.githubusersapp
  * Created by George Yu in Nov. 2021.
  */
 const val BASE_URL = "https://api.github.com/"
+
+const val CROSS_FADE_IN_MILLIS = 600
