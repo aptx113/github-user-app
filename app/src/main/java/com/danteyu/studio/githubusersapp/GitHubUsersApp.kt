@@ -24,10 +24,10 @@ import kotlin.properties.Delegates
  * Created by George Yu in Nov. 2021.
  */
 @HiltAndroidApp
-class GitHubUserApp : Application() {
+class GitHubUsersApp : Application() {
 
     companion object {
-        var instance: GitHubUserApp by Delegates.notNull()
+        var instance: GitHubUsersApp by Delegates.notNull()
     }
 
     override fun onCreate() {

@@ -13,16 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp.data.repository
+package com.danteyu.studio.githubusersapp.di
 
-import com.danteyu.studio.githubusersapp.model.GitHubUser
-import com.danteyu.studio.githubusersapp.utils.Resource
-import kotlinx.coroutines.flow.Flow
+import com.danteyu.studio.githubusersapp.data.repository.GitHubUsersRepository
+import com.danteyu.studio.githubusersapp.data.repository.Repository
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 /**
  * Created by George Yu in Nov. 2021.
  */
-interface Repository {
+@Module
+@InstallIn(ViewModelComponent::class)
+abstract class RepositoryModule {
 
-    fun getGitHubUsersFlow(): Flow<Resource<List<GitHubUser>>>
+    @ViewModelScoped
+    @Binds
+    abstract fun bindGitHubUsersRepository(gitHubUsersRepository: GitHubUsersRepository): Repository
 }

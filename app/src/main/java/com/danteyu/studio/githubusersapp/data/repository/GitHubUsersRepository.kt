@@ -28,7 +28,7 @@ import javax.inject.Inject
  */
 class GitHubUsersRepository @Inject constructor(private val apiService: GitHubUsersApiService) :
     Repository {
-    override fun getGitHubUsers(): Flow<Resource<List<GitHubUser>>> = flow {
+    override fun getGitHubUsersFlow(): Flow<Resource<List<GitHubUser>>> = flow {
         emit(safeApiCall { apiService.getUsers() })
     }
 }
