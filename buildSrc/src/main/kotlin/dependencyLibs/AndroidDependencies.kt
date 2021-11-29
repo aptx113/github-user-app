@@ -29,7 +29,6 @@ object AndroidTestLibraries {
         add(Espresso.IDLING)
         add(Espresso.INTENTS)
         add(Hilt.TESTING)
-        add(Mockk.UNIT_TEST)
         add(Mockk.INSTRUMENTAL_TEST)
         add(TestEx.JUNIT)
         add(TestEx.TRUTH)

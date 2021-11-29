@@ -16,6 +16,7 @@
 package com.danteyu.studio.githubusersapp
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.danteyu.studio.githubusersapp.data.repository.Repository
 import com.danteyu.studio.githubusersapp.model.GitHubUser
@@ -36,6 +37,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
+
+    val gitHubUsersFromDatabase = repository.loadGitHubUsersFlow().asLiveData()
 
     private val _gitHubUsersFlow = MutableStateFlow<Resource<List<GitHubUser>>>(Resource.Loading)
     val gitHubUsersFlow: StateFlow<Resource<List<GitHubUser>>> = _gitHubUsersFlow

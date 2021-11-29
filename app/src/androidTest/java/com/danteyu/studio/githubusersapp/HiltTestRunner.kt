@@ -15,12 +15,20 @@
  */
 package com.danteyu.studio.githubusersapp
 
+import android.app.Application
+import android.content.Context
+import androidx.test.runner.AndroidJUnitRunner
+import dagger.hilt.android.testing.HiltTestApplication
+
 /**
  * Created by George Yu in Nov. 2021.
  */
-const val BASE_URL = "https://api.github.com/"
-
-const val CROSS_FADE_IN_MILLIS = 600
-
-const val GITHUB_USERS_TABLE = "gitHubUsers_table"
-const val GITHUB_USERS_DATABASE = "gitHubUsers_database"
+class HiltTestRunner : AndroidJUnitRunner() {
+    override fun newApplication(
+        cl: ClassLoader?,
+        className: String?,
+        context: Context?
+    ): Application {
+        return super.newApplication(cl, HiltTestApplication::class.java.name, context)
+    }
+}

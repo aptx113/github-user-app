@@ -23,11 +23,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.danteyu.studio.githubusersapp.databinding.ActivityMainBinding
+import com.danteyu.studio.githubusersapp.ext.observeOnce
 import com.danteyu.studio.githubusersapp.ext.showToast
 import com.danteyu.studio.githubusersapp.utils.NetworkListener
 import com.danteyu.studio.githubusersapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -68,11 +70,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun listenNetworkAvailability() {
         networkListener.checkNetworkAvailability(this)
+            .drop(1)
             .onEach { hasNetwork ->
                 Timber.d(hasNetwork.toString())
                 showNetworkStatus(hasNetwork)
+                loadDatabase { requestApiData() }
             }.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .launchIn(lifecycleScope)
+    }
+
+    private fun loadDatabase(request: () -> Unit = {}) {
+        viewModel.gitHubUsersFromDatabase.observeOnce(this) {
+            if (it.isNotEmpty()) {
+                Timber.d("readDatabase called!!")
+                adapter.submitList(it)
+            } else {
+                request()
+            }
+        }
     }
 
     private fun requestApiData() {
@@ -83,8 +98,14 @@ class MainActivity : AppCompatActivity() {
                 .collect { response ->
                     when (response) {
                         is Resource.Success -> response.data?.let { adapter.submitList(it) }
-                        is Resource.Error -> showToast(response.message.toString())
-                        is Resource.GenericError -> Timber.e("code = ${response.code}, error = ${response.error}")
+                        is Resource.Error -> {
+                            loadDatabase()
+                            showToast(response.message.toString())
+                        }
+                        is Resource.GenericError -> {
+                            loadDatabase()
+                            Timber.e("code = ${response.code}, error = ${response.error}")
+                        }
                         is Resource.Loading -> {
                             binding.mainProgress.visibility = View.VISIBLE
                         }

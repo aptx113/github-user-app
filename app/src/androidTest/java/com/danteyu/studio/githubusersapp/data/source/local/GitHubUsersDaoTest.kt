@@ -13,51 +13,60 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.danteyu.studio.githubusersapp.data.repository
+package com.danteyu.studio.githubusersapp.data.source.local
 
-import com.danteyu.studio.githubusersapp.MainCoroutineRule
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.test.filters.SmallTest
 import com.danteyu.studio.githubusersapp.data.mock.mockGitHubUsers
-import com.danteyu.studio.githubusersapp.data.source.api.GitHubUsersApiService
 import com.danteyu.studio.githubusersapp.data.source.db.GitHubUsersDao
+import com.danteyu.studio.githubusersapp.data.source.db.GitHubUsersDatabase
 import com.google.common.truth.Truth
-import io.mockk.every
-import io.mockk.mockk
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Created by George Yu in Nov. 2021.
  */
+@SmallTest
 @ExperimentalCoroutinesApi
-class GitHubUsersRepositoryTest {
+@HiltAndroidTest
+class GitHubUsersDaoTest {
 
     @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var repository: GitHubUsersRepository
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+
+    @Inject
+    @Named("testDatabase")
+    lateinit var db: GitHubUsersDatabase
     private lateinit var dao: GitHubUsersDao
-    private lateinit var apiService: GitHubUsersApiService
 
     @Before
     fun setup() {
-        dao = mockk()
-        apiService = mockk()
-        repository = GitHubUsersRepository(apiService, dao)
+        hiltRule.inject()
+        dao = db.gitHubUsersDao()
+    }
+
+    @After
+    fun tearDown() {
+        db.close()
     }
 
     @Test
-    fun loadGitHubUsersFlow_returnFlowOfGitHubUsers() = runBlockingTest {
-        val gitHubUsersFlow = flowOf(mockGitHubUsers)
-        every { dao.loadGitHubUsersFlow() }.returns(gitHubUsersFlow)
-        repository.loadGitHubUsersFlow().collect { result ->
-            Truth.assertThat(result).isEqualTo(
-                mockGitHubUsers
-            )
-        }
+    fun insertGitHubUsers_getUsers() = runBlockingTest {
+        dao.insertGitHubUsers(mockGitHubUsers)
+        val result = dao.loadGitHubUsersFlow().first()
+        Truth.assertThat(result).contains(mockGitHubUsers[0])
     }
 }

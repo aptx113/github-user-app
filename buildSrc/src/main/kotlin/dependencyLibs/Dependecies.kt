@@ -115,6 +115,13 @@ object Retrofit2 {
     const val CONVERTER_MOSHI = "com.squareup.retrofit2:converter-moshi:${RETROFIT2_VERSION}"
 }
 
+object Room {
+    const val RUNTIME = "androidx.room:room-runtime:${DependencyVersions.ROOM_VERSION}"
+    const val COMPILER = "androidx.room:room-compiler:${DependencyVersions.ROOM_VERSION}"
+    const val KTX = "androidx.room:room-ktx:${DependencyVersions.ROOM_VERSION}"
+    const val TESTING = "androidx.room:room-testing:${DependencyVersions.ROOM_VERSION}"
+}
+
 object SwipeRefresh {
     const val SWIPE_REFRESH =
         "androidx.swiperefreshlayout:swiperefreshlayout:${SWIPE_REFRESH_VERSION}"
@@ -155,6 +162,8 @@ object Libraries {
         add(RecyclerView.RECYCLERVIEW)
         add(Retrofit2.CONVERTER_MOSHI)
         add(Retrofit2.RETROFIT)
+        add(Room.KTX)
+        add(Room.RUNTIME)
         add(SwipeRefresh.SWIPE_REFRESH)
         add(Test.CORE)
         add(Timber.TIMBER)
@@ -162,5 +171,6 @@ object Libraries {
 
     val kaptLibraries = arrayListOf<String>().apply {
         add(Hilt.COMPILER)
+        add(Room.COMPILER)
     }
 }

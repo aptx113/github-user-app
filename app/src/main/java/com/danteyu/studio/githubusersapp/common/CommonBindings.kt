@@ -40,12 +40,18 @@ object CommonBindings {
             error(R.drawable.img_placeholder)
         }
 
-    @BindingAdapter("apiResponse")
+    @BindingAdapter("apiResponse", "gitHubUsers", requireAll = false)
     @JvmStatic
-    fun bindErrorVisibility(view: View, apiResponse: Resource<List<GitHubUser>>) {
+    fun bindErrorVisibility(
+        view: View,
+        apiResponse: Resource<List<GitHubUser>>,
+        gitHubUsers: List<GitHubUser>?
+    ) {
         when (view) {
             is ProgressBar -> view.isVisible = apiResponse is Resource.Loading
-            is TextView -> view.isVisible = apiResponse is Resource.Error
+            is TextView ->
+                view.isVisible =
+                    apiResponse is Resource.Error && gitHubUsers.isNullOrEmpty()
         }
     }
 }

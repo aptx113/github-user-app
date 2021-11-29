@@ -25,4 +25,6 @@ import kotlinx.coroutines.flow.Flow
 interface Repository {
 
     fun getGitHubUsersFlow(): Flow<Resource<List<GitHubUser>>>
+
+    fun loadGitHubUsersFlow(): Flow<List<GitHubUser>>
 }

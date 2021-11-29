@@ -16,9 +16,10 @@
 package com.danteyu.studio.githubusersapp.data.repository
 
 import com.danteyu.studio.githubusersapp.data.source.api.GitHubUsersApiService
+import com.danteyu.studio.githubusersapp.data.source.db.GitHubUsersDao
 import com.danteyu.studio.githubusersapp.model.GitHubUser
 import com.danteyu.studio.githubusersapp.utils.Resource
-import com.danteyu.studio.githubusersapp.utils.safeApiCall
+import com.danteyu.studio.githubusersapp.utils.networkBoundResource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -26,9 +27,19 @@ import javax.inject.Inject
 /**
  * Created by George Yu in Nov. 2021.
  */
-class GitHubUsersRepository @Inject constructor(private val apiService: GitHubUsersApiService) :
+class GitHubUsersRepository @Inject constructor(
+    private val apiService: GitHubUsersApiService,
+    private val dao: GitHubUsersDao
+) :
     Repository {
     override fun getGitHubUsersFlow(): Flow<Resource<List<GitHubUser>>> = flow {
-        emit(safeApiCall { apiService.getUsers() })
+        emit(
+            networkBoundResource(
+                apiCall = { apiService.getUsers() },
+                saveApiCall = { dao.insertGitHubUsers(it) }
+            )
+        )
     }
+
+    override fun loadGitHubUsersFlow(): Flow<List<GitHubUser>> = dao.loadGitHubUsersFlow()
 }

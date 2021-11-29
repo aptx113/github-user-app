@@ -61,7 +61,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:apiResponse="@{viewModel.gitHubUsersFlow}" />
+            bind:apiResponse="@{viewModel.gitHubUsersFlow}"
+            bind:gitHubUsers="@{viewModel.gitHubUsersFromDatabase}"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
