@@ -7,10 +7,10 @@ Also fetching data from the network and integrating persisted data in the databa
 
 ## Feature
 1. Display list of GitHub User
-<img width="300" height="600" src="https://github.com/aptx113/github-users-app/blob/add_readme/preview/display%20users.gif"/>
+<img width="300" height="600" src="https://github.com/aptx113/github-users-app/blob/master/preview/display%20users.gif"/>
 
 2. Display the last Recipe list when offline through cache.
-<img width="300" height="600" src="https://github.com/aptx113/github-users-app/blob/add_readme/preview/display%20cache.gif"/>
+<img width="300" height="600" src="https://github.com/aptx113/github-users-app/blob/master/preview/display%20cache.gif"/>
 
 ## Tech stack & Open-source libraries
 - Minimum SDK level 26
